@@ -1,0 +1,1 @@
+<?php include(Controller::get_include($template));

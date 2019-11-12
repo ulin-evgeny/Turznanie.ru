@@ -1,0 +1,319 @@
+/**
+Данный файл содержит стили и sass наработки, которые не / почти не меняются от макета к макету
+*/
+
+// ===========================================
+// adaptive-layout
+// ===========================================
+// breakpoints
+$bp-xl: 1200;
+$bp-lg: 992;
+$bp-md: 768;
+$bp-sm: 480;
+
+// -------------------------------------------
+// Данные функции нужны для фикса вот этого бага:
+// http://damienclarke.me/code/posts/those-1px-gaps-between-media-queries-can-be-a-problem
+// https://bugs.chromium.org/p/chromium/issues/detail?id=689096
+// На 125% и 150% работает. На 149 - проблема с 1200 (Возможно, еще с какими значениями). Другие значения я не проверял.
+// -------------------------------------------
+@function get-max-value($number) {
+	$number: $number - 1;
+	$number: unquote($number + '.999999');
+	@return $number;
+}
+
+@function get-min-value($number) {
+	$number: unquote($number + '.999999');
+	@return $number;
+}
+
+@mixin breakpoint($min: false, $max: false) {
+	@if $min != false {
+		@if $max != false {
+			@media only screen and (min-width: get-min-value($min) + 'px') and (max-width: get-max-value($max) + 'px') {
+				@content;
+			}
+		} @else {
+			@media only screen and (min-width: get-min-value($min) + 'px') {
+				@content;
+			}
+		}
+	} @else if $max != false {
+		@media only screen and (max-width: get-max-value($max) + 'px') {
+			@content;
+		}
+	}
+}
+
+// ===========================================
+// Остальные функции
+// ===========================================
+// ---------------------------------
+// Удаление размрености
+// ---------------------------------
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+	@return $number;
+}
+
+// ---------------------------------
+// Подключение шрифтов
+// ---------------------------------
+@mixin font-face-one(
+	$name,
+	$font-file,
+	$weight: false,
+	$style: false
+) {
+	@font-face {
+		font-family: quote($name);
+		src: url("#{$font-file}");
+		@if $weight {
+			font-weight: $weight;
+		}
+		@if $style {
+			font-style: $style;
+		}
+	}
+}
+
+/* =========================================== */
+/* Reset
+/* =========================================== */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video,
+*:before, *:after {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline;
+	outline: none;
+}
+
+// HTML5 display-role reset for older browsers
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+em {
+	font-style: italic;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+q:before, q:after {
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* =========================================== */
+/* Базовые стили
+/* =========================================== */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	overflow-x: hidden;
+	min-width: 320px;
+}
+
+a, a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: bottom;
+}
+
+.right {
+	float: right;
+}
+
+.hidden {
+	display: none;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.black {
+	/* с данным классом ссылки при наведении меняют цвет (в отличие от параметра style) */
+	color: #000;
+}
+
+.black-on-hover {
+	&:hover {
+		color: #000;
+	}
+}
+
+/* --------------------------------- */
+/* container
+/* --------------------------------- */
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	&::before, &::after {
+		content: "";
+		display: table;
+	}
+	&::after {
+		clear: both;
+	}
+	@include breakpoint($max: $bp-md) {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	@include breakpoint($min: $bp-md, $max: $bp-lg) {
+		& {
+			width: 750px;
+		}
+	}
+	@include breakpoint($min: $bp-lg, $max: $bp-xl) {
+		& {
+			width: 970px;
+		}
+	}
+	@include breakpoint($bp-xl) {
+		& {
+			width: 1140px;
+		}
+	}
+}
+
+/* --------------------------------- */
+/* Стандартные списки
+/* --------------------------------- */
+.std-ul {
+	list-style: disc inside;
+}
+
+.std-ol {
+	list-style: decimal inside;
+}
+
+.std-ul ul, .std-ol ul {
+	list-style: circle inside;
+	margin-left: 15px;
+}
+
+.std-ol ol, .std-ul ol {
+	list-style: lower-latin inside;
+	margin-left: 15px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.mirror-y {
+	transform: scaleY(-1);
+}
+
+.mirror-x {
+	transform: scaleX(-1);
+}
+
+.clearfix {
+	&::before, &::after {
+		content: "";
+		display: table;
+	}
+	&::after {
+		clear: both;
+	}
+}
+
+.middle {
+	height: 100%;
+	&::after {
+		content: '';
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+	& > * {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+/* --------------------------------- */
+/* 5-ти звездный рейтинг
+/* --------------------------------- */
+.star-rating {
+	display: inline-block;
+	& > input:checked ~ label, /* show gold star when clicked */
+	&:not(:checked) > label:hover, /* hover current star */
+	&:not(:checked) > label:hover ~ label {
+		color: #FFD700;
+	}
+	& > input:checked + label:hover, /* hover current star when changing rating */
+	& > input:checked ~ label:hover,
+	& > label:hover ~ input:checked ~ label, /* lighten current selection */
+	& > input:checked ~ label:hover ~ label {
+		color: #FFED85;
+	}
+	& > input {
+		display: none;
+	}
+	& > label {
+		color: #d5d5d5;
+		float: right;
+		&::before {
+			font-size: 40px;
+			font-family: 'fontello';
+			content: '\e800';
+		}
+		&:nth-of-type(2n+4):before {
+			margin-right: 10px;
+		}
+	}
+	& > .half:before {
+		content: '\e801';
+		position: absolute;
+	}
+}

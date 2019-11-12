@@ -1,0 +1,16 @@
+/* line 2, ../scss/style.scss */
+.photo-sizepack-uploader__input-file {
+  display: none;
+}
+/* line 5, ../scss/style.scss */
+.photo-sizepack-uploader__img-wrap {
+  width: 122px;
+  height: 122px;
+  overflow: hidden;
+  border: 1px solid gray;
+}
+/* line 11, ../scss/style.scss */
+.photo-sizepack-uploader__img-and-btns {
+  display: table;
+  text-align: center;
+}

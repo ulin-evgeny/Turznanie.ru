@@ -1,0 +1,2306 @@
+/**
+Данном файле содержатся стили конкретного данного макета.
+*/
+
+// =======================================
+// Переменные
+// =======================================
+$color_1: #fff;
+$color_2: #00d190;
+$color_3: #a5a5a5;
+$color_4: #c3c3c3;
+$color_5: #F2F2F2;
+$color_6: #f5f6f8;
+$color_7: #f35c56;
+$color_8: #ff7c7c;
+$color_shadow: rgba(0, 0, 0, 0.07);
+
+$pd_container: 15px;
+$middle-panel-pd: 14px;
+$item-margin: 14px;
+$custom-elems-font-size: 14px;
+$header-mobile-height: 52px; // Высота header'a на $bp-md. ее нужно знать, так как header становится fixed. И для того, что идет ниже него, нужен отступ. Высотой в это значение.
+$scrollbar-width: 17px; /* Ширина скроллбара */
+
+// =======================================
+// Миксины
+// =======================================
+@mixin shadow_on_pc($v) {
+    @include breakpoint($bp-md) {
+        box-shadow: 0 8px 7.3px $v+px $color_shadow;
+    }
+}
+
+// =======================================
+// Стили
+// =======================================
+body, input, textarea {
+    font-family: Circe, sans-serif;
+    font-weight: 100;
+}
+
+body {
+    font-size: 16px;
+}
+
+blockquote {
+    display: block;
+    border-left: 3px solid $color_2;
+    padding: 4px 10px;
+}
+
+a {
+    &, &:hover {
+        color: $color_2;
+    }
+}
+
+textarea {
+    resize: none;
+    padding: 5px 5px;
+    outline: none;
+}
+
+select, input, textarea {
+    font-size: 13px;
+}
+
+input, textarea {
+    border: 1px solid #cdcdcd;
+}
+
+/* ---------------------------------------- */
+/* иконки
+/* ---------------------------------------- */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.icon-doc:before {
+    padding-right: 2px;
+}
+
+/* ---------------------------------------- */
+/* стилизация slick-carousel
+/* ---------------------------------------- */
+.custom-dot {
+    $dot: &;
+    background-color: #dcdcdc;
+    width: 11px;
+    height: 11px;
+    border-radius: 50px;
+    display: block;
+    @at-root .slick-dots li {
+        &:nth-child(n+2) {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        &.slick-active #{$dot} {
+            background-color: $color_2;
+        }
+    }
+}
+
+/* ---------------------------------------- */
+/* стилизация slider-range
+/* ---------------------------------------- */
+#slider-range {
+    border: 0;
+    height: 5px;
+    margin-bottom: 22px;
+    background: $color_4;
+    &.ui-slider-horizontal {
+        height: 4px;
+        background-color: #e4e4e4;
+        & .ui-slider-handle {
+            top: -8px;
+            margin-left: -.5em;
+        }
+        & .ui-slider-range {
+            top: 0;
+            height: 100%;
+        }
+        & .ui-slider-range-min {
+            left: 0;
+        }
+        & .ui-slider-range-max {
+            right: 0;
+        }
+    }
+    &.ui-slider {
+        margin-left: 9px;
+        margin-right: 9px;
+        margin-top: 14px;
+        position: relative;
+        text-align: left;
+        & .ui-slider-handle {
+            position: absolute;
+            z-index: 2;
+            width: 19px;
+            height: 19px;
+            background: url('../images/range-slider.png');
+            cursor: pointer;
+            border: none;
+        }
+        & .ui-slider-range {
+            position: absolute;
+            z-index: 1;
+            font-size: .7em;
+            display: block;
+            border: 0;
+            background-position: 0 0;
+        }
+    }
+    & .ui-corner-all,
+    & .ui-corner-top,
+    & .ui-corner-left,
+    & .ui-corner-tl {
+        border-top-left-radius: 4px;
+    }
+    & .ui-corner-all,
+    & .ui-corner-top,
+    & .ui-corner-right,
+    & .ui-corner-tr {
+        border-top-right-radius: 4px;
+    }
+    & .ui-corner-all,
+    & .ui-corner-bottom,
+    & .ui-corner-left,
+    & .ui-corner-bl {
+        border-bottom-left-radius: 4px;
+    }
+    & .ui-corner-all,
+    & .ui-corner-bottom,
+    & .ui-corner-right,
+    & .ui-corner-br {
+        border-bottom-right-radius: 4px;
+    }
+    & .ui-widget-header {
+        background: #00d9a1;
+    }
+}
+
+/* ---------------------------------------- */
+/* ckeditor
+/* ---------------------------------------- */
+.ckeditor-html, .ckeditor-html body {
+    /* это нужно, чтобы когда выделяешь текст и кликаешь мышкой на пустое место в ckeditor, курсор не сбрасывался в верхний левый угол */
+    width: 100%;
+    height: 100%;
+}
+
+body.cke_editable {
+    padding: 10px;
+    font-size: $custom-elems-font-size;
+}
+
+/* ---------------------------------------- */
+/* стилизация nice-select
+/* ---------------------------------------- */
+.nice-select-style-1 {
+    display: inline-block;
+    padding-right: 16px;
+    position: relative;
+    &:hover {
+        cursor: pointer;
+    }
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 8px;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        background: url(../images/customSelectArrow.png) no-repeat center right;
+    }
+    &.open {
+        &:after {
+            transform: translate(0, -50%) rotate(180deg);
+        }
+        & .list {
+            display: block;
+        }
+    }
+    & .list {
+        display: none;
+        position: absolute;
+        box-shadow: 0 8px 19.4px 4.6px $color_shadow;
+        background-color: #fff;
+        bottom: -8px;
+        right: -6px;
+        transform: translateY(100%);
+        z-index: 10;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    & .option {
+        display: block;
+        color: black;
+        text-align: center;
+        line-height: 40px;
+        padding: 0 22px;
+        &:hover {
+            background-color: #00d08f;
+            color: #fff;
+        }
+    }
+}
+
+/* ---------------------------------------- */
+/* javascript стили
+/* ---------------------------------------- */
+.js-spoiler {
+    &__body {
+        display: none;
+    }
+    &.active &__body {
+        display: block;
+    }
+}
+
+.js-file-uploader {
+    &__upload-input {
+        display: none;
+    }
+}
+
+/* ---------------------------------------- */
+/* nice-line
+/* ---------------------------------------- */
+.nice-line {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: $color_5;
+    &_pos_ {
+        &top {
+            top: 0;
+        }
+        &bottom {
+            bottom: 0;
+        }
+    }
+    &_device_ {
+        &pc {
+            @include breakpoint($max: $bp-md) {
+                display: none;
+            }
+        }
+        &mobile {
+            @include breakpoint($bp-md) {
+                display: none;
+            }
+        }
+    }
+}
+
+/* ---------------------------------------- */
+/* теги
+/* ---------------------------------------- */
+.js-input-tags-wrap .bootstrap-tagsinput {
+    display: block;
+}
+
+.bootstrap-tagsinput input {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.label, .bootstrap-tagsinput input {
+    display: inline-block;
+    padding-top: .2em;
+    padding-bottom: .3em;
+}
+
+.label {
+    padding-left: .6em;
+    padding-right: .6em;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.label-plain {
+    background-color: gray;
+}
+
+.label-success {
+    background-color: #5cb85c;
+}
+
+.label-info {
+    background-color: #5bc0de;
+}
+
+.label-danger {
+    background-color: #d9534f;
+}
+
+.js-input-tags-wrap * {
+    font-size: 15px;
+}
+
+.readonly .bootstrap-tagsinput {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.readonly .bootstrap-tagsinput input {
+    display: none;
+}
+
+.readonly .bootstrap-tagsinput .tag [data-role="remove"] {
+    display: none;
+}
+
+/* ---------------------------------------- */
+/* custom-uploader
+/* ---------------------------------------- */
+.custom-uploader {
+    &__remove-btn {
+        margin-left: 4px;
+    }
+    &__icon-cancel {
+        vertical-align: middle;
+        color: $color_7;
+        &:hover {
+            color: $color_2;
+        }
+    }
+}
+
+/* ---------------------------------------- */
+/* Стили макета
+/* ---------------------------------------- */
+.right {
+    float: right !important;
+}
+
+.left {
+    float: left !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.disabled {
+    color: $color_4;
+    &:hover {
+        color: $color_4;
+        cursor: not-allowed;
+    }
+}
+
+.wrapper {
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+.button {
+    padding: 8px 24px;
+    font: 16px/1 Arial, sans-serif;
+    background-color: $color_2;
+    color: $color_1;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    border: 0;
+    cursor: pointer;
+    &:hover {
+        color: $color_1;
+    }
+    &_rounded {
+        border-radius: 21px;
+    }
+}
+
+.underline {
+    display: inline-block; /* это нужно, чтобы :after не уезжал от родителя (так бывает в некоторых случаях) */
+    position: relative;
+    &:after {
+        border-top: 0.5px currentColor;
+        height: 1px;
+        display: block;
+        width: 100%;
+        position: absolute;
+        content: "";
+        margin-top: -4px;
+    }
+}
+
+.custom-elems {
+    $p: &;
+    &__h1, &__h2, &__h3 {
+        font-weight: bold;
+    }
+    &__h1 {
+        padding-bottom: 10px;
+        font-size: 20px;
+    }
+    &__h2 {
+        padding-bottom: 8px;
+        font-size: 18px;
+    }
+    &__h3 {
+        padding-bottom: 4px;
+        font-size: 16px;
+    }
+    &__section {
+        padding-bottom: 14px;
+    }
+    &__string {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        &_gap_lg {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        &_gap_xl {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        &:nth-of-type(1) {
+            margin-top: 0;
+        }
+        &:nth-last-of-type(1) {
+            margin-bottom: 0;
+        }
+    }
+    &__input {
+        font-size: $custom-elems-font-size;
+        width: 152px;
+        height: 24px;
+        @at-root {
+            input#{&} {
+                padding: 4px;
+            }
+        }
+        &_width_full {
+            width: 100%;
+        }
+    }
+    &__label {
+        display: inline-block;
+    }
+    &__link {
+        cursor: pointer;
+        &:hover {
+            &:after {
+                display: none !important;
+            }
+        }
+        &_type_ {
+            &underline-solid {
+                @extend .underline;
+                &:after {
+                    border-style: solid;
+                }
+            }
+        }
+        &_active-color_ {
+            &white:hover {
+                color: white;
+            }
+        }
+    }
+    &__point-16 {
+        margin-left: 16px;
+    }
+    &__point-6 {
+        margin-left: 6px;
+    }
+}
+
+.review {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.tag {
+    display: inline-block;
+    height: 22px;
+    margin: 2px;
+    color: #fff;
+    font-size: 15px;
+    &:hover {
+        color: #fff;
+    }
+}
+
+.color-tags {
+    margin-left: -2px;
+    margin-right: -2px;
+}
+
+.screen {
+    &-pc {
+        @include breakpoint($max: $bp-md) {
+            display: none !important;
+        }
+    }
+    &-mobile {
+        @include breakpoint($bp-md) {
+            display: none !important;
+        }
+    }
+}
+
+.header {
+    $bp-less-md: 500;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    @include breakpoint($max: $bp-md) {
+        position: fixed;
+        width: 100%;
+        height: $header-mobile-height;
+        z-index: 19;
+        top: 0;
+        background-color: #fff;
+    }
+    &__logo-text {
+        @include breakpoint($bp-lg) {
+            padding-right: 46px;
+        }
+        @include breakpoint($bp-md) {
+            font-size: 14px;
+            line-height: 1.2;
+            padding-top: 3px;
+            padding-left: 2px;
+        }
+        @include breakpoint($max: $bp-md) {
+            display: none;
+        }
+    }
+    &__logo {
+        float: left;
+        @include breakpoint($bp-lg) {
+            width: 266px;
+        }
+    }
+    &__logo-img-wrap {
+        display: inline-block;
+    }
+    &__cabinet {
+        text-align: right;
+        @include breakpoint($min: $bp-lg) {
+            float: right;
+        }
+    }
+    &__cabinet-link {
+        color: black;
+    }
+    &__cabinet-text {
+        @include breakpoint($max: $bp-md) {
+            font-size: 14px;
+            padding-bottom: 2px;
+        }
+    }
+    &__cabinet-btn-wrap {
+        @include breakpoint($max: $bp-md) {
+            display: inline-block;
+            &:nth-of-type(1) {
+                margin-right: 4px;
+            }
+        }
+    }
+    &__cabinet-mobile-btn {
+        font-size: 22px;
+        @include breakpoint($bp-md) {
+            display: none;
+        }
+    }
+    &__cabinet-pc-btn {
+        @include breakpoint($max: $bp-md) {
+            display: none;
+        }
+    }
+    &__mobile-menu-btn {
+        font-size: 34px;
+        vertical-align: middle;
+        display: inline-block;
+        line-height: 0;
+    }
+    &__main-search {
+        @include breakpoint($max: $bp-md) {
+            display: none;
+        }
+        @include breakpoint($max: $bp-lg) {
+            margin-top: 8px;
+        }
+    }
+}
+
+.main-search {
+    position: relative;
+    &:before {
+        content: "";
+        top: 50%;
+        left: 16px;
+        position: absolute;
+        display: block;
+        background: url(../images/search-bg.png) no-repeat left center;
+        width: 14px;
+        height: 14px;
+        transform: translateY(-50%);
+    }
+    @include breakpoint($bp-md) {
+        display: table;
+    }
+    &__input {
+        background: $color_5;
+        border-radius: 3px;
+        border: 0;
+        padding: 10px 16px 10px 42px;
+        color: #353535;
+        font: 13px Arial;
+        @include breakpoint($bp-md) {
+            width: 357px;
+        }
+        @include breakpoint($max: $bp-md) {
+            width: 100%;
+        }
+        @at-root {
+            /**
+             * Исправление бага в хроме
+             * https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete
+             */
+            input:-webkit-autofill#{&} {
+                -webkit-box-shadow: 0 0 0 30px $color_5 inset;
+            }
+        }
+    }
+}
+
+.navigation {
+    $parent: &;
+    position: relative;
+    @include breakpoint($max: $bp-md) {
+        display: none;
+    }
+    border-top: 1px solid $color_5;
+    text-align: center;
+    &__item {
+        border-left: 1px solid $color_5;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 28px 26px;
+        display: block;
+        float: left;
+        text-transform: uppercase;
+        &:hover {
+            background-color: #00d295;
+            color: #ffffff;
+        }
+        &:nth-last-of-type(1) {
+            border-right: 1px solid $color_5;
+        }
+    }
+    &__items-wrap {
+        &_amount-btns_3 {
+            #{$parent}__item {
+                width: calc(100% / 3);
+            }
+        }
+        &_amount-btns_5 {
+            #{$parent}__item {
+                width: calc(100% / 5);
+            }
+        }
+        &_with-border-top {
+            border-top: 1px solid $color_5;
+        }
+    }
+}
+
+.right-side {
+    float: right;
+}
+
+.left-side {
+    @include breakpoint($bp-lg) {
+        float: left;
+        width: 270px;
+    }
+}
+
+.choosing-panel {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+    &__btn {
+        background-repeat: no-repeat;
+        background-position: left 20px center;
+        padding: 12px 16px 12px;
+        &_type_filter {
+            background-image: url(../images/icon-filter.png);
+        }
+        &_type_sort {
+            background-image: url(../images/icon-sort.png);
+        }
+        &:nth-of-type(1) {
+            margin-right: 8px;
+        }
+        &_with_icon {
+            padding-left: 38px;
+        }
+    }
+}
+
+.middle-panel {
+    position: relative;
+    padding-top: $middle-panel-pd;
+    padding-bottom: $middle-panel-pd;
+    @include breakpoint($bp-md) {
+        background-color: $color_6;
+    }
+    @include breakpoint($max: $bp-md) {
+        margin-top: $header-mobile-height;
+    }
+}
+
+.billboard {
+    $border: 1px solid $color_5;
+    @include shadow_on_pc(1.7);
+    position: relative;
+    background-color: #fff;
+    .slick-dots {
+        border-top: $border;
+        text-align: center;
+        @include breakpoint($max: $bp-md) {
+            border-bottom: $border;
+        }
+        li {
+            display: inline-block;
+        }
+    }
+    &__slide-header {
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        position: relative;
+        @include breakpoint($max: $bp-md) {
+            border-bottom: $border;
+        }
+    }
+    &__header-shadow {
+        @include breakpoint($bp-md) {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 40px;
+            width: 100%;
+            z-index: 2;
+            overflow: hidden;
+            transform: translateY(100%);
+            &:after {
+                display: block;
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                box-shadow: 0 0 36.2px 3.8px rgba(0, 0, 0, 0.18)
+            }
+        }
+    }
+    &__slide-body {
+        position: relative;
+    }
+    &__tags-cloud {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        @include breakpoint($bp-xl) {
+            font-size: 10px;
+        }
+        @include breakpoint($bp-lg, $bp-xl) {
+            font-size: 8.5px;
+        }
+        @include breakpoint($bp-md, $bp-lg) {
+            font-size: 7px;
+        }
+        @include breakpoint($max: $bp-md) {
+            font-size: 6px;
+        }
+    }
+    &__image {
+        width: 100%;
+    }
+}
+
+.about {
+    padding-top: 28px;
+    padding-left: 2px;
+    &__h1 {
+        font: bold 16px Arial;
+        margin-bottom: 4px;
+    }
+    & p {
+        padding-bottom: 9px;
+    }
+    &__text-wrap {
+        overflow: hidden;
+        position: relative;
+    }
+    &__text {
+        font-size: 14px;
+        padding-right: 6px;
+        padding-left: 6px;
+        max-height: 999999px; /* для Chrome Android */
+        overflow: hidden;
+    }
+    &__btn {
+        font-size: 14px;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+    &__overlay {
+        background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+        height: 100px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+.item-stats {
+    color: $color_3;
+    &__elem {
+        display: inline-block;
+    }
+    &__comments {
+        margin-right: -4px;
+    }
+    &__num-rating-up {
+        margin-left: 3px;
+    }
+    &__num-rating-value {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+}
+
+.custom-color {
+    &_status_ {
+        &hidden {
+            color: $color_8;
+        }
+        &visible {
+            color: $color_2;
+        }
+    }
+}
+
+.item-tree {
+    &__tags-line {
+        padding-left: 8px;
+    }
+}
+
+.color-tags {
+    display: inline-block; /* чтобы применился отрицательный margin, будучи обтекаующим элементом */
+}
+
+%catalog-item {
+    background-color: #fff;
+    @include shadow_on_pc(0.1);
+}
+
+.item-material {
+    @extend %catalog-item;
+    @include breakpoint($bp-md) {
+        overflow: hidden;
+    }
+    $item-gap: 8px;
+    $bp-very-sm: 440;
+    $img-width: 146px;
+    $p: &;
+    @include breakpoint($bp-md) {
+        border-radius: 10px;
+    }
+    &:nth-last-of-type(n+2) {
+        @include breakpoint($bp-md) {
+            margin-bottom: $item-margin;
+        }
+    }
+    &__content-wrap {
+        padding: $item-gap;
+    }
+    &__body {
+        position: relative;
+    }
+    &__color-tags-wrap {
+        clear: both;
+        padding-top: $item-gap;
+    }
+    &__image {
+        width: 138px;
+        overflow: hidden;
+        margin-right: $item-gap;
+    }
+    &:nth-last-of-type(n+2) {
+        @include breakpoint($max: $bp-md) {
+            border-bottom: 1px solid $color_5;
+        }
+        & #{$p}__status-bar {
+            @include breakpoint($max: $bp-md) {
+                margin-bottom: 5px;
+            }
+        }
+    }
+    &__dash {
+        @include breakpoint($max: $bp-very-sm) {
+            display: none;
+        }
+    }
+    &__top-line {
+        overflow: hidden;
+        @include breakpoint($max: $bp-very-sm) {
+            text-align: center;
+        }
+        &_literature {
+            @include breakpoint($bp-xl) {
+                height: 112px;
+            }
+        }
+    }
+    &__sm-block {
+        @include breakpoint($max: $bp-sm) {
+            display: block;
+        }
+    }
+    &__title-wrap {
+        font-size: 18px;
+        font-weight: bold;
+        @include breakpoint($bp-very-sm) {
+            display: table;
+        }
+        @include breakpoint($max: $bp-very-sm) {
+            text-align: center;
+        }
+    }
+    &__title {
+        display: block;
+        color: black;
+    }
+    &__description {
+        overflow: hidden; /* длинная последовательность символов без пробелов уходит на экран */
+        font-size: 15px;
+        padding-top: 6px;
+        line-height: 1.2;
+        @include breakpoint($max: $bp-very-sm) {
+            padding-top: $item-gap;
+            clear: both;
+        }
+    }
+    & .item-stats {
+        @include breakpoint($bp-xl) {
+            float: right;
+        }
+    }
+    & .item-stats__elem {
+        @include breakpoint($max: $bp-very-sm) {
+            display: block;
+        }
+    }
+    &__item-status-bar {
+        margin-top: 6px;
+    }
+}
+
+.item-status-bar {
+    height: 20px;
+    &_color_hidden {
+        background-color: $color_8;
+    }
+    &_color_shown {
+        background-color: $color_2;
+    }
+}
+
+.item-admin, .item-admin-wrap {
+    &:nth-last-of-type(n+2) {
+        border-bottom: 1px solid $color_5;
+    }
+}
+
+.item-admin {
+    @extend %catalog-item;
+    border-radius: 6px;
+    padding: 5px 5px;
+    @include breakpoint($max: $bp-md) {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    @include breakpoint($bp-md) {
+        margin-bottom: 8px;
+    }
+    @include breakpoint($max: $bp-sm) {
+        text-align: center;
+    }
+    &__change-title {
+        @include breakpoint($bp-sm) {
+            margin-left: 4px;
+        }
+        @include breakpoint($max: $bp-sm) {
+            display: table;
+            margin: 4px auto;
+        }
+    }
+    &__change-status-wrap {
+        @include breakpoint($bp-sm) {
+            float: right;
+            text-align: right;
+        }
+        @include breakpoint($max: $bp-sm) {
+            float: left;
+        }
+        display: inline-block;
+        border-right: 1px solid $color_5;
+        margin-right: 6px;
+        padding-right: 12px;
+    }
+    &__btn {
+        margin-top: -2px;
+        height: 20px;
+        font-size: 20px;
+    }
+    &__delete {
+        color: $color_7;
+        @include breakpoint($bp-sm) {
+            float: right;
+        }
+    }
+    &__create {
+        color: $color_2;
+        @include breakpoint($bp-sm) {
+            float: right;
+        }
+    }
+    &__first-part {
+        @include breakpoint($bp-sm) {
+            float: left;
+        }
+    }
+    &__second-part {
+        @include breakpoint($max: $bp-sm) {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+.board-item {
+    background-color: #fff;
+    @include shadow_on_pc(0.1);
+    @include breakpoint($bp-md) {
+        padding: 18px;
+        border-radius: 5px;
+        margin-top: 8px;
+    }
+}
+
+.board-literature {
+    $leftside-xl: 50%;
+    $leftside-lg: 30%;
+    $leftside-md: 40%;
+    &__top-part {
+        @include breakpoint($min: $bp-md) {
+            display: table;
+            width: 100%;
+        }
+    }
+    &__leftside {
+        @include breakpoint($min: $bp-md) {
+            vertical-align: middle;
+            display: table-cell;
+            border-right: 1px solid $color_5;
+        }
+        @include breakpoint($min: $bp-md, $max: $bp-lg) {
+            width: $leftside-md;
+        }
+        @include breakpoint($min: $bp-lg, $max: $bp-xl) {
+            width: $leftside-lg;
+        }
+        @include breakpoint($bp-xl) {
+            width: $leftside-xl;
+        }
+    }
+    &__rightside {
+        @include breakpoint($max: $bp-md) {
+            padding-top: 18px;
+        }
+        @include breakpoint($min: $bp-md) {
+            vertical-align: top;
+            display: table-cell;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+    &__item-stats {
+        padding-bottom: 4px;
+    }
+    &__info-wrap {
+        border-top: 1px solid $color_5;
+    }
+    &__description-wrap {
+        padding-bottom: 6px;
+    }
+    &__info-line {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        &:nth-last-of-type(n+2) {
+            border-bottom: 1px solid $color_5;
+        }
+    }
+    &__info-key {
+        color: $color_3;
+        &:after {
+            content: ":";
+            display: inline-block;
+        }
+    }
+    &__info-right {
+        border-left: 1px solid $color_5;
+    }
+    &__header {
+        padding-bottom: 4px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    &__img-wrap {
+        display: table;
+        margin: 0 auto;
+    }
+    &__bot-part {
+        padding-top: 18px;
+    }
+}
+
+.board-article {
+    & .item-stats {
+        color: $color_3;
+    }
+    & .icon-comment::before {
+        margin-left: 0;
+    }
+    & .item-stats {
+        @include breakpoint($max: $bp-md) {
+            padding-top: 2px;
+        }
+        @include breakpoint($bp-md) {
+            float: right;
+        }
+    }
+    &__item-type {
+        font-family: Tahoma, sans-serif;
+    }
+    &__top-line {
+        padding-bottom: 6px;
+    }
+    &__basic-info {
+        padding-bottom: 8px;
+    }
+    &__title {
+        font-size: 22px;
+        font-weight: bold;
+    }
+    &__title-wrap {
+        @include breakpoint($bp-md) {
+            float: left;
+        }
+    }
+    &__img-wrap {
+        padding-bottom: 16px;
+        text-align: center;
+    }
+    &__admin-actions {
+        padding-top: 10px;
+    }
+}
+
+.comment {
+    $comment: &;
+    $gap: 10px;
+    padding-top: $gap;
+    padding-bottom: $gap;
+    border-bottom: solid 1px #f2f2f2;
+    position: relative;
+    min-height: 60px + $gap * 2;
+    $img_w: 60;
+    $img_h: 60;
+    &:nth-last-of-type(1) {
+        border-bottom: 0;
+    }
+    &__img-wrap {
+        position: absolute;
+        left: 0;
+        top: $gap;
+    }
+    &__img {
+        width: #{$img_w}px;
+        height: #{$img_h}px;
+        display: inline-block;
+    }
+    &__text-wrap {
+        padding-left: $img_w + 10px;
+    }
+    &__date {
+        margin-left: -4px;
+        vertical-align: baseline;
+        color: $color_3;
+        font-family: Tahoma, sans-serif;
+        font-size: 14px;
+    }
+    &__top-line-elem {
+        margin-right: 6px;
+    }
+    &__last-edit {
+        color: $color_3;
+    }
+    &_is_editable {
+        #{$comment}__text {
+            color: $color_4;
+        }
+    }
+    &__mentioned-elem {
+        margin-left: 8px;
+    }
+    &__bottom-line {
+        color: $color_3;
+        line-height: 1;
+    }
+}
+
+.comments {
+    &__textarea {
+        display: block;
+        width: 100%;
+        height: 70px;
+    }
+    &__cancel-change {
+        margin-left: 4px;
+    }
+    &__mentioned-user {
+        margin-left: 8px;
+    }
+    &__mentioned-cancel {
+        color: $color_7;
+    }
+}
+
+.item-params {
+    &__btn {
+        color: black;
+        &.active, &:hover {
+            color: $color_2;
+        }
+    }
+    &__add-favorite {
+        margin-right: 6px;
+        &:before {
+            margin-right: 4px;
+        }
+    }
+    &__rating-btn {
+        font-size: 25px;
+        vertical-align: middle;
+    }
+    &__rating-value {
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+}
+
+.page-cabinet {
+    $bp-less-md: 540;
+    $left-side-width: 270px;
+    $btn-list-margin: 10px;
+    @include breakpoint($max: $bp-sm) {
+        text-align: center;
+    }
+    @include breakpoint($max: $bp-md) {
+        padding-bottom: 18px;
+    }
+    &__left-side {
+        @include breakpoint($bp-md) {
+            width: $left-side-width;
+            float: left;
+        }
+    }
+    &__right-side {
+        @include breakpoint($bp-md) {
+            padding-left: $left-side-width;
+        }
+    }
+    &__column {
+        @include breakpoint($bp-sm) {
+            float: left;
+            &:nth-last-of-type(n+2) {
+                margin-right: 16px;
+                clear: right;
+            }
+        }
+        @include breakpoint($max: $bp-sm) {
+            &:nth-of-type(n+2) {
+                padding-top: 8px;
+            }
+        }
+    }
+    &__content {
+        padding-top: 8px;
+    }
+    &__photo-wrap, &__avatar {
+        @include breakpoint($max: $bp-sm) {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+        }
+    }
+    &__img-wrap {
+        @include breakpoint($max: $bp-sm) {
+            margin: 0 auto;
+        }
+    }
+    &__success {
+        font-weight: 100;
+        color: green;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+    &__photo-text {
+        font-size: 12px;
+    }
+    &__btn-list {
+        margin-top: -#{$btn-list-margin};
+    }
+    &__btn-list-item {
+        margin-top: $btn-list-margin;
+    }
+    &__label_length {
+        &_short {
+            width: 48px;
+        }
+        &_medium {
+            width: 114px;
+        }
+        &_long {
+            width: 118px;
+        }
+    }
+    &__avatar {
+        border: 1px solid gray;
+    }
+}
+
+.aside-menu {
+    $parent: &;
+    $pl: 15px;
+    $width_header: 220px;
+    $width_link: 182px;
+    @include breakpoint($max: $bp-lg) {
+        padding-bottom: 16px;
+    }
+    &__header {
+        font-weight: bold;
+        padding-bottom: 10px;
+        font-size: 18px;
+        @include breakpoint($bp-lg) {
+            padding-left: $pl;
+        }
+        @include breakpoint($bp-sm) {
+            width: $width_header;
+        }
+        @include breakpoint($bp-sm) {
+            width: $width_link;
+        }
+    }
+    &__children-items {
+        @for $i from 1 through 10 {
+            &_level_#{$i} {
+                & #{$parent}__link-text {
+                    padding-left: $i * 12px;
+                }
+            }
+        }
+    }
+    &__header-link {
+        @include breakpoint($bp-lg) {
+            margin-left: -$pl;
+            padding-left: $pl;
+        }
+        display: block;
+    }
+    &__send-message {
+        display: block;
+        margin-bottom: 1px;
+        padding-top: 2px;
+        color: #000;
+        @include breakpoint($bp-sm) {
+            width: $width_header;
+        }
+    }
+    &__items-wrap {
+        padding: 0;
+        margin-top: 5px;
+        @include breakpoint($bp-sm) {
+            width: $width_link;
+        }
+    }
+    &__link {
+        display: block;
+        height: 24px;
+        padding-left: $pl;
+        padding-right: $pl;
+        margin: 2px 0;
+        line-height: 24px;
+        color: #000;
+        text-decoration: none;
+    }
+    & a.active, & a:hover {
+        background-color: #e4e4e4;
+    }
+}
+
+.mailing {
+    &__item-wrap {
+        font-size: 14px;
+        display: block;
+    }
+    &__item-checkbox {
+        vertical-align: middle;
+    }
+    &__item-label {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.ls-panel {
+    $parent: &;
+    $pd: 30px;
+    border-radius: 15px;
+    background-color: $color_1;
+    @include shadow_on_pc(1.7);
+    @include breakpoint($max: $bp-lg) {
+        &:nth-last-of-type(1) {
+            margin-bottom: 20px;
+        }
+    }
+    &:nth-last-of-type(n+2) {
+        margin-bottom: 20px;
+    }
+    & input {
+        font-size: 16px;
+    }
+    &_without-header &__body {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    &__body {
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+        position: relative;
+        &_hide-protruding {
+            overflow: hidden;
+        }
+        &_type-panel {
+            width: 100%; /* чтобы .ls-panel__amount не выходил за границы */
+            padding-left: $pd;
+            padding-right: $pd;
+            padding-bottom: $pd;
+        }
+        &_group-only-one {
+            @include breakpoint($bp-lg) {
+                #{$parent}__left-group {
+                    margin-bottom: -1px;
+                }
+            }
+            #{$parent}__right-group {
+                display: none;
+            }
+        }
+        &_groups-eq-height {
+            @include breakpoint($min: $bp-md, $max: $bp-lg) {
+                #{$parent}__left-group, #{$parent}__right-group {
+                    margin-bottom: -1px;
+                }
+            }
+        }
+        &_groups-diff-height {
+            @include breakpoint($min: $bp-md, $max: $bp-lg) {
+                #{$parent}__left-group {
+                    margin-bottom: -1px;
+                }
+            }
+        }
+    }
+    &__inputs {
+        @include breakpoint($max: $bp-lg) {
+            display: table;
+        }
+    }
+    &__toggle-btn {
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        top: 50%;
+        right: $pd;
+        transform: translate(25%, -50%);
+        background: url(../images/customSelectArrow.png) no-repeat center center;
+        cursor: pointer;
+    }
+    &.active &__toggle-btn {
+        transform: translate(25%, -50%) rotate(180deg);
+    }
+    &__amount-wrap {
+        max-width: 100%; /* для amount-wrap назначена ширина, зависимая от контекста. max-width не позволяет ей быть больше родителя */
+        &:nth-of-type(1) {
+            float: left;
+        }
+    }
+    &__filter-label {
+        width: 22px;
+        display: inline-block;
+    }
+    &__amount-input {
+        border: 0;
+    }
+    &__header {
+        padding: $pd;
+        position: relative;
+        font-size: 23px;
+        font-weight: bold;
+        #{$parent}.active & {
+            margin-bottom: -20px;
+        }
+    }
+    &__left-group, &__right-group {
+        @include breakpoint($min: $bp-md, $max: $bp-lg) {
+            width: 50%;
+            float: left;
+        }
+    }
+    &__right-group {
+        @include breakpoint($bp-lg) {
+            margin-bottom: -1px; /* это нужно, чтобы спрятать border-bottom у последних кнопок (он немного торчит - это некрасиво) */
+        }
+    }
+    &__left-group {
+        @include breakpoint($min: $bp-md, $max: $bp-lg) {
+            border-right: 1px solid $color_5;
+        }
+    }
+    &__reset-btn {
+        float: right;
+        &_left-on-lg {
+            @include breakpoint($max: $bp-lg) {
+                float: left;
+            }
+        }
+    }
+}
+
+.ls-btn {
+    $parent: &;
+    position: relative;
+    font-size: 16px;
+    color: #000;
+    height: 50px;
+    display: block;
+    padding: 14px 30px;
+    border-bottom: 1px solid $color_5;
+    &_with-childs {
+        &.active:before {
+            transform: translate(0, -50%);
+        }
+        &:before {
+            content: '';
+            top: 50%;
+            transform: translate(0, -50%) rotate(-90deg);
+            left: 12px;
+            position: absolute;
+            background: url(../images/show-on-arrow-black.png) no-repeat center center;
+            width: 12px;
+            height: 8px;
+        }
+    }
+    &_with-checkmark {
+        padding-left: 54px;
+    }
+    &:hover, &.active {
+        &#{$parent}_with-checkmark {
+            color: #000;
+        }
+        &#{$parent}_standart {
+            background-color: $color_2;
+            color: $color_1;
+        }
+        & #{$parent}__checkmark {
+            background-image: url(../images/checkmark-active.png);
+        }
+    }
+    &__checkmark {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        margin-left: -24px;
+        transform: translate(0, -60%);
+        background: url(../images/checkmark-blank.png) center center no-repeat;
+    }
+    &__count {
+        float: right;
+        font-size: 14px;
+    }
+    &__submenu & {
+        padding-left: 40px;
+    }
+}
+
+.line-panel {
+    background-color: #fff;
+    @include shadow_on_pc(1.7);
+    font-size: 16px;
+    padding: 15px 18px;
+    min-height: 40px;
+    @include breakpoint($bp-md) {
+        margin-bottom: 20px;
+        border-radius: 15px;
+    }
+}
+
+.sorter {
+    @include breakpoint($max: $bp-md) {
+        border-top: 1px solid $color_5;
+        border-bottom: 1px solid $color_5;
+        margin-bottom: $middle-panel-pd;
+    }
+    &__btn {
+        display: inline-block;
+        margin-right: 12px;
+        padding-right: 17px;
+        color: #000;
+        position: relative;
+        &.active {
+            float: left;
+            font-weight: bold;
+        }
+        &_to-desc {
+            &:after {
+                transform: translate(0, -50%);
+            }
+        }
+        &_to-asc {
+            &:after {
+                transform: translate(0, -50%) rotateX(180deg);
+            }
+        }
+        &:after {
+            width: 11px;
+            height: 12px;
+            display: block;
+            position: absolute;
+            content: "";
+            right: 0;
+            top: 50%;
+            background: url(../images/filter-arrow.png) no-repeat center center;
+        }
+    }
+    &__on-page {
+        float: right;
+    }
+    &__on-page-text {
+        @include breakpoint($max: $bp-md) {
+            display: none;
+        }
+    }
+    &__text {
+        float: left;
+        margin-right: 10px;
+    }
+}
+
+.fpanel {
+    $p: &;
+    @include breakpoint($max: $bp-md) {
+        border-top: 1px solid $color_5;
+    }
+    &__btn {
+        color: #000;
+        position: relative;
+        padding-right: 17px;
+        display: inline-block;
+        margin-right: 6px;
+        &:hover {
+            #{$p}__icon {
+                color: $color_2;
+            }
+        }
+    }
+    &__icon {
+        color: $color_7;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+}
+
+.page-item {
+    &__change {
+        margin-right: 4px;
+    }
+    &__share {
+        padding-bottom: 8px;
+    }
+}
+
+.pds-bottom {
+    @include breakpoint($bp-md) {
+        padding-bottom: 30px;
+    }
+}
+
+.page-item-filling {
+    &__btn-photo-list {
+        padding-top: 4px;
+        width: 140px;
+        text-align: center;
+    }
+    &__label {
+        width: 84px;
+    }
+    &__preview {
+        width: 100%;
+        padding: 5px;
+    }
+    &__author-delete-btn {
+        color: $color_7;
+        margin-left: 2px;
+        vertical-align: middle;
+    }
+}
+
+.page-message {
+    &__text {
+        padding-bottom: 10px;
+    }
+}
+
+.footer {
+    position: relative;
+    $bp-less-md-2: 430;
+    $bp-less-md-1: 540;
+    $pd: 14px;
+    &__message {
+        padding-bottom: $pd;
+    }
+    &__links {
+        padding-bottom: $pd;
+    }
+    &__links-column {
+        padding-top: 28px;
+        @include breakpoint($bp-less-md-1) {
+            float: left;
+        }
+    }
+    &__links-column:nth-last-of-type(n+2) {
+        width: 226px;
+    }
+    &__links-column-header {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: bold;
+        @include breakpoint($bp-less-md-2) {
+            padding-bottom: 18px;
+        }
+        @include breakpoint($max: $bp-less-md-2) {
+            padding-bottom: 10px;
+        }
+    }
+    &__links-item {
+        display: table;
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: black;
+    }
+    &__copyright {
+        position: relative;
+        padding-top: $pd;
+        padding-bottom: $pd;
+    }
+}
+
+.page-catalog {
+    $p: &;
+    &__left-side {
+        @include breakpoint($max: $bp-md) {
+            display: none;
+        }
+        & #{$p}__header {
+            @include breakpoint($bp-lg) {
+                padding-left: 36px;
+            }
+        }
+    }
+    &__hide-on-less-lg {
+        @include breakpoint($max: $bp-lg) {
+            display: none;
+        }
+    }
+    &__btn-add {
+        @include shadow_on_pc(0.1);
+    }
+    &__items-not-found {
+        @include breakpoint($bp-md) {
+            padding-bottom: 6px; //для равномерности. сверху отступ 20px, а снизу 14px (middle-panel). 14 + 6 = 20.
+        }
+    }
+}
+
+.header-separator {
+    $padding: 28px;
+    font-weight: bold;
+    padding-bottom: $padding;
+    padding-top: $padding;
+    font-size: 20px;
+    height: 86px;
+    &_pos_left {
+        padding-left: $padding;
+    }
+    &_pos_right {
+        @include breakpoint($max: $bp-lg) {
+            height: auto;
+        }
+        @include breakpoint($min: $bp-md, $max: $bp-lg) {
+            padding-top: 8px;
+        }
+    }
+}
+
+.pagination {
+    $parent: &;
+    $btn-margin-pc: 10px;
+    $btn-margin-mobile: 5px;
+    &__wrap {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: $item-margin;
+        display: table;
+    }
+    &_style_1 {
+        #{$parent}__btn {
+            background-color: #fff;
+            @include shadow_on_pc(0.1);
+            border-radius: 5px;
+            &.active {
+                background-color: $color_2;
+                color: #fff;
+            }
+            &_type_arrow {
+                color: transparent;
+                &:before {
+                    width: 10px;
+                    height: 16px;
+                    background: url('../images/pagination-btn.png') no-repeat center center;
+
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    transform: translate(-50%, 50%);
+                }
+            }
+            &_direction_right {
+                &:before {
+                    transform: translate(-50%, 50%) rotate(180deg);
+                }
+            }
+        }
+        #{$parent}__btn, #{$parent}__three-dots {
+            &:nth-last-child(n+2) {
+                @include breakpoint($bp-sm) {
+                    margin-right: 10px;
+                }
+                @include breakpoint($max: $bp-sm) {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    &_style_2 {
+        #{$parent}__btn {
+            &.active {
+                color: $color_2;
+            }
+        }
+    }
+    &__btn {
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+        position: relative;
+        padding-top: 4px;
+        text-align: center;
+        color: black;
+    }
+    &__three-dots {
+        display: inline-block;
+        width: 12px;
+        text-align: center;
+    }
+}
+
+.on-page {
+    &__wrap {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    &__item {
+        margin-left: 5px;
+    }
+}
+
+.custom-popup-window {
+    position: relative;
+    background-color: #fff;
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 500px;
+    text-align: center;
+    padding: 25px 15px 15px 15px;
+    box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.2);
+    &__close {
+        position: absolute;
+        font-size: 18px;
+        right: 8px;
+        top: 5px;
+        color: $color_7;
+    }
+    &__btns-wrap {
+        padding-top: 10px;
+        & .button:nth-of-type(2) {
+            margin-left: 10px;
+        }
+    }
+    &__message {
+        display: table;
+        margin: 0 auto;
+    }
+}
+
+.custom-popup {
+    // TODO: УДАЛИ ЭТОТ СЕЛЕКТОР С ЭТИМ КОДОМ
+    &__window {
+        position: relative;
+        background-color: #fff;
+        border-radius: 2px;
+        overflow: hidden;
+        text-align: center;
+        padding: 25px 15px 15px 15px;
+        box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.2);
+    }
+    &__close {
+        position: absolute;
+        font-size: 18px;
+        right: 8px;
+        top: 5px;
+        color: $color_7;
+    }
+    &__btns-wrap {
+        padding-top: 10px;
+        & .button:nth-of-type(2) {
+            margin-left: 10px;
+        }
+    }
+    &__content {
+        position: fixed;
+    }
+    &__scroll-wrapper {
+        /* Самый внешний html-элемент для popup. В нем расположены все остальные. У него есть left и right. */
+        top: 0;
+        height: 100%;
+        position: fixed;
+        left: 15px;
+        right: 15px;
+        z-index: 20;
+        margin: 0 auto;
+    }
+    &__scroll-wrap {
+        /* Если использовать этот элемент, как самый внешний. И указать left и right здесь, то right не сработает, так как внутри есть &__scroll, который имеет box-sizing: content-box; и padding-right: 17px; */
+        top: 0;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        z-index: 21;
+    }
+    &__scroll {
+        /* Данный элемент нужен для того, чтобы можно было скролить содержимое popup */
+        top: 0;
+        left: 0;
+        $padding_value: calc(#{$header-mobile-height} + 20px);
+        height: 100%;
+        width: 100%;
+        z-index: 22;
+        position: absolute;
+        overflow-y: scroll;
+        padding-top: $padding_value;
+
+        /* box-sizing и padding-right нужны для того, чтобы скрыть скроллбар */
+        box-sizing: content-box;
+        padding-right: 17px;
+        &:after {
+            /* after нужен для padding-bottom, потому что просто так он не работает (из-за box-sizing: content-box;) */
+            content: "";
+            display: block;
+            height: calc(#{$padding_value} * 2);
+        }
+    }
+    &__message {
+        display: table;
+        margin: 0 auto;
+    }
+}
+
+.custom-popup-bg {
+    position: fixed;
+    width: 100%;
+    height: 100vh; /* обязательно нужно vh (не проценты) - так как на Android в chrome при скролле уезжает адресная строка и fixed элементы, которые были 100%, становится не 100% */
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.6;
+    z-index: 20;
+    &_color_white {
+        background-color: #fff;
+    }
+}
+
+.page-registration {
+    &__agreement {
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid $color_4;
+        background-color: $color_5;
+        padding: 10px;
+        @include breakpoint($bp-md) {
+            float: right;
+        }
+        @include breakpoint($bp-lg) {
+            width: 590px;
+        }
+        @include breakpoint($min: $bp-md, $max: $bp-lg) {
+            width: 420px;
+        }
+        @include breakpoint($max: $bp-md) {
+            margin-bottom: 18px;
+        }
+    }
+    &__header {
+        @include breakpoint($bp-md) {
+            float: left;
+        }
+    }
+    &__form {
+        @include breakpoint($bp-md) {
+            clear: left;
+        }
+    }
+    &__label {
+        width: 80px;
+    }
+}
+
+.page-login {
+    $p: &;
+    &__message {
+        margin-top: -16px;
+        padding-bottom: 12px;
+    }
+    &__label {
+        width: 64px;
+    }
+}
+
+.right-side {
+    @include breakpoint($max: $bp-md) {
+        width: 100%;
+    }
+    @include breakpoint($min: $bp-md, $max: $bp-lg) {
+        width: 750px;
+    }
+    @include breakpoint($min: $bp-lg, $max: $bp-xl) {
+        width: 670px;
+    }
+    @include breakpoint($bp-xl) {
+        width: 850px;
+    }
+}
+
+.breadcrumbs {
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 100;
+    &__divider {
+        display: inline-block;
+        height: 13px;
+        width: 26px;
+        background: url(../images/breadcrumbs-arrow.png) center 6px no-repeat;
+    }
+    &__link-wrap {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    &__link {
+        color: #000;
+        border-bottom: 1px solid #cbcecd;
+    }
+}
+
+.user-avatar-wrap {
+    overflow: hidden;
+    &_size_sm {
+        width: 122px;
+        height: 122px;
+    }
+    &_size_xs {
+        width: 60px;
+        height: 60px;
+    }
+    & img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.page-search {
+    &__in-admin {
+        margin-left: 18px;
+    }
+}
+
+.top-message {
+    text-align: center;
+    background-color: $color_2;
+    @include breakpoint($max: $bp-md) {
+        margin-top: $header-mobile-height;
+    }
+}
+
+.mobile-menu {
+    $width: 280;
+    $p: &;
+    z-index: 19;
+    top: $header-mobile-height;
+    left: -#{$width}px;
+    height: calc(100vh - #{$header-mobile-height});
+    position: fixed;
+    background-color: white;
+    box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.2);
+    &_is-hidden {
+        box-shadow: none;
+        #{$p}__close-btn {
+            display: none;
+        }
+    }
+    &__content {
+        padding-bottom: 100px; /* padding-bottom нужен, чтобы удобнее было пользоваться поиском на телефонах. У них ведь клавиатура на пол экрана внизу. */
+        width: #{$width}px;
+        height: 100%;
+        overflow-y: scroll;
+    }
+    &__close-btn {
+        $dimensions: 40;
+        background-color: $color_5;
+        padding-left: 7px;
+        padding-top: 3px;
+        width: #{$dimensions}px;
+        height: #{$dimensions}px;
+        display: block;
+        font-size: 26px;
+        position: absolute;
+        right: -#{$dimensions}px;
+    }
+    &__item {
+        display: block;
+        color: #353535;
+        text-align: center;
+        font-size: 18px;
+        line-height: 44px;
+        &_type_back:before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 16px;
+            margin-right: 8px;
+            margin-left: -16px;
+            margin-bottom: -2px;
+            background-image: url('../images/pagination-btn.png');
+        }
+    }
+    &__main-search {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 4px;
+        margin-bottom: 10px;
+    }
+    &__item_type_see-all {
+        border-top: 1px solid $color_5;
+        border-bottom: 1px solid $color_5;
+    }
+}
+
+.filter-date {
+    &__input-from, &__input-to {
+        /* это необходимо, чтобы на телефонах в popup в выборе даты через календарь у календаря был правильный z-index */
+        position: relative;
+        z-index: 500;
+    }
+}
+
+.item-share- {
+    &fb {
+        font-size: 22px;
+        color: #365899;
+        margin-left: 4px;
+        display: inline-block;
+        &:hover {
+            color: #365899;
+        }
+    }
+    &vk {
+        vertical-align: top;
+    }
+}
+
+.widget-share {
+    /* это нужно, так как в мобильном хроме кнопки расположены не на одной линии по вертикали */
+    & > a {
+        vertical-align: middle;
+        height: 23px;
+        line-height: 23px;
+    }
+}

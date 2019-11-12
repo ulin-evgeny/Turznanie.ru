@@ -1,0 +1,15 @@
+.photo-sizepack-uploader {
+	&__input-file {
+		display: none;
+	}
+	&__img-wrap {
+		width: 122px;
+		height: 122px;
+		overflow: hidden;
+		border: 1px solid gray;
+	}
+	&__img-and-btns {
+		display: table;
+		text-align: center;
+	}
+}

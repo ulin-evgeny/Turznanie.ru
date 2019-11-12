@@ -1,0 +1,13 @@
+/**
+Данный файл предназначен для подключения шрифтов.
+Пример подключения:
+@include font-face-one("Circe", "../fonts/Circe/Circe.woff");
+@include font-face-one("Circe", "../fonts/Circe/CirceBold.woff", bold);
+@include font-face-one("Circe", "../fonts/Circe/CirceExtraBold.woff", 800);
+@include font-face-one("Circe", "../fonts/Circe/CirceLight.woff", 100);
+*/
+
+@include font-face-one("Circe", "../fonts/Circe/Circe.woff");
+@include font-face-one("Circe", "../fonts/Circe/CirceBold.woff", bold);
+@include font-face-one("Circe", "../fonts/Circe/CirceExtraBold.woff", 800);
+@include font-face-one("Circe", "../fonts/Circe/CirceLight.woff", 100);

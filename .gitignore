@@ -1,0 +1,17 @@
+### logs ###
+application/logs/*
+
+### ide файлы ###
+.idea/
+
+### caches ###
+libs/HTMLPurifier/library/HTMLPurifier/DefinitionCache/Serializer/**/*.ser
+.sass-cache/
+application/cache/*
+
+### config ###
+# конфиг локального сервера
+application/config/config_dev
+
+# конфиг продакшна
+application/config/config_prod
