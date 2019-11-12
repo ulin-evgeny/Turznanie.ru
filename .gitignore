@@ -7,7 +7,6 @@ application/logs/*
 ### caches ###
 libs/HTMLPurifier/library/HTMLPurifier/DefinitionCache/Serializer/**/*.ser
 .sass-cache/
-application/cache/*
 
 ### config ###
 # конфиг локального сервера
