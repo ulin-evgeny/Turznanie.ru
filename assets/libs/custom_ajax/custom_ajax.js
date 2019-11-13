@@ -24,9 +24,11 @@ $(function () {
                 func = custom_ajax__notification;
                 break;
         }
-        Object.assign(settings, {
+
+        settings = $.extend({
             success: func
-        });
+        }, settings);
+
         $this.custom_ajax(settings);
     });
 

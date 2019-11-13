@@ -1,4 +1,100 @@
 //===============================================
+// open_page_in_window
+//===============================================
+function open_page_in_window(url) {
+    if (page_loading) {
+        return;
+    }
+    page_loading = true;
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (res) {
+            custom_popup_open(res, {btn_1: BTN_OK_TEXT}, function ($popup, $btn_1) {
+                $btn_1.on('click', function () {
+                    $popup.euv_custom_popup('close');
+                });
+            });
+
+            page_loading = false;
+        },
+        error: function (res) {
+            $('body').html(res.responseText);
+        }
+    });
+    return false;
+}
+
+
+//===============================================
+// url_query и все, что его касается
+//===============================================
+var page_loading;
+var global_last_url = window.location.href;
+
+$(window).on('hashchange', function () {
+    global_last_url = window.location.href;
+});
+
+function url_query(url, scroll, dont_change_history) {
+    if (page_loading) {
+        return false;
+    }
+
+    page_loading = true;
+    show_load(true);
+
+    global_last_url = window.location.href;
+
+    if (!dont_change_history) {
+        window.history.pushState({url: url, scroll: scroll}, document.title, url);
+    }
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (res) {
+            $('#middle').html(res);
+
+            update_js_functions();
+
+            if (typeof scroll !== 'undefined') {
+                $(window).scrollTop(scroll);
+            }
+
+            hide_load();
+            page_loading = false;
+        }
+    });
+}
+
+// Кнопки браузера "Назад" и "Вперед"
+$(window).on('popstate', function (event) {
+    var state = event.originalEvent.state;
+    var scroll;
+    if (state) {
+        scroll = state.scroll;
+    } else {
+        scroll = 0;
+    }
+    if (!window.location.hash && global_last_url.indexOf("#") === -1) {
+        url_query(window.location.hash, scroll, true);
+    }
+});
+
+function show_load(white) {
+    if (white) {
+        $('body').append('<div class="custom-popup-bg custom-popup-bg_color_white"></div>');
+    } else {
+        $('body').append('<div class="custom-popup-bg"></div>');
+    }
+}
+
+function hide_load() {
+    $('.custom-popup-bg').remove();
+}
+
+//===============================================
 // Функционал для $euv_custom_popup
 //===============================================
 var $euv_custom_popup;
@@ -647,102 +743,6 @@ function form_of_word(n, f1, f2, f5) {
         return f1;
     }
     return f5;
-}
-
-//===============================================
-// open_page_in_window
-//===============================================
-function open_page_in_window(url) {
-    if (page_loading) {
-        return;
-    }
-    page_loading = true;
-    $.ajax({
-        type: "GET",
-        url: url,
-        success: function (res) {
-            custom_popup_open(res, {btn_1: BTN_OK_TEXT}, function ($popup, $btn_1) {
-                $btn_1.on('click', function () {
-                    $popup.euv_custom_popup('close');
-                });
-            });
-
-            page_loading = false;
-        },
-        error: function (res) {
-            $('body').html(res.responseText);
-        }
-    });
-    return false;
-}
-
-
-//===============================================
-// url_query и все, что его касается
-//===============================================
-var page_loading;
-var global_last_url = window.location.href;
-
-$(window).on('hashchange', function () {
-    global_last_url = window.location.href;
-});
-
-function url_query(url, scroll, dont_change_history) {
-    if (page_loading) {
-        return false;
-    }
-
-    page_loading = true;
-    show_load(true);
-
-    global_last_url = window.location.href;
-
-    if (!dont_change_history) {
-        window.history.pushState({url: url, scroll: scroll}, document.title, url);
-    }
-
-    $.ajax({
-        type: "GET",
-        url: url,
-        success: function (res) {
-            $('#middle').html(res);
-
-            update_js_functions();
-
-            if (typeof scroll !== 'undefined') {
-                $(window).scrollTop(scroll);
-            }
-
-            hide_load();
-            page_loading = false;
-        }
-    });
-}
-
-// Кнопки браузера "Назад" и "Вперед"
-$(window).on('popstate', function (event) {
-    var state = event.originalEvent.state;
-    var scroll;
-    if (state) {
-        scroll = state.scroll;
-    } else {
-        scroll = 0;
-    }
-    if (!window.location.hash && global_last_url.indexOf("#") === -1) {
-        url_query(window.location.hash, scroll, true);
-    }
-});
-
-function show_load(white) {
-    if (white) {
-        $('body').append('<div class="custom-popup-bg custom-popup-bg_color_white"></div>');
-    } else {
-        $('body').append('<div class="custom-popup-bg"></div>');
-    }
-}
-
-function hide_load() {
-    $('.custom-popup-bg').remove();
 }
 
 //===============================================
