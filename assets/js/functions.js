@@ -477,25 +477,21 @@ function update_js_functions() {
 $.fn.viewmore = function (h, btn, tw, overlay) {
     var $this = $(this),
         speed = 400;
+    var h_default = tw.css('height');
     tw.css('height', h);
-    $(window).on('load', function () {
-        tw.css('height', 'auto');
-        var h_default = tw.css('height');
-        tw.css('height', h);
-        btn.on('click', function () {
-            $this.toggleClass('active');
-            if ($this.hasClass('active')) {
-                tw.animate({height: h_default}, speed);
-                overlay.fadeOut(speed, function () {
-                    toggle_text(btn, 'data-text');
-                });
-            } else {
-                tw.animate({height: h}, speed);
-                overlay.fadeIn(speed, function () {
-                    toggle_text(btn, 'data-text');
-                });
-            }
-        });
+    btn.on('click', function () {
+        $this.toggleClass('active');
+        if ($this.hasClass('active')) {
+            tw.animate({height: h_default}, speed);
+            overlay.fadeOut(speed, function () {
+                toggle_text(btn, 'data-text');
+            });
+        } else {
+            tw.animate({height: h}, speed);
+            overlay.fadeIn(speed, function () {
+                toggle_text(btn, 'data-text');
+            });
+        }
     });
 };
 
