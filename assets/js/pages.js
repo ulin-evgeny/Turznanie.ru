@@ -836,15 +836,14 @@ $(function () {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // page-index
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$(function () {
+// onload, а не ready, так как нужно дождаться, когда загрузятся шрифты
+$(window).on('load', function () {
     if ($('.page-index').length) {
-        $(function () {
-            var e = $('.js-view-more'),
-                btn = e.find('.js-view-more__btn'),
-                tw = e.find('.js-view-more__tw'),
-                overlay = e.find('.js-view-more__overlay');
+        var e = $('.js-view-more'),
+            btn = e.find('.js-view-more__btn'),
+            tw = e.find('.js-view-more__tw'),
+            overlay = e.find('.js-view-more__overlay');
 
             e.viewmore(e.attr('data-height'), btn, tw, overlay);
-        });
     }
 });
